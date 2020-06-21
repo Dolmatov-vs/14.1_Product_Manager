@@ -33,23 +33,20 @@ public class Repository {
     }
 
     public void removeById(int id) {
-        if (findById(id) != null) {
-            try {
-//            if (findById(id) != null); {
-                int length = items.length - 1;
-                Product[] tmp = new Product[length];
-                int index = 0;
-                for (Product item : items) {
-                    if (item.getId() != id) {
-                        tmp[index] = item;
-                        index++;
-                    }
+        if (findById(id) == new Product[0]) {
+            throw new NotFoundException("Element with id: " + id + " not found");
+        }
+        if (findById(id) != new Product[0]) {
+            int length = items.length - 1;
+            Product[] tmp = new Product[length];
+            int index = 0;
+            for (Product item : items) {
+                if (item.getId() != id) {
+                    tmp[index] = item;
+                    index++;
                 }
-                items = tmp;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Element with id: " + id + " not found");
-                e.printStackTrace();
             }
+            items = tmp;
         }
     }
 }
