@@ -19,34 +19,28 @@ public class Repository {
         return items;
     }
 
-    public Product[] findById(int id) {
-        Product[] findItem = new Product[0];
-        int index = 0;
+    public Product findById(int id) {
         for (Product item : items) {
             if (item.getId() == id) {
-                findItem = new Product[1];
-                findItem[index] = item;
-                index++;
+                return item;
             }
         }
-        return findItem;
+        return null;
     }
 
     public void removeById(int id) {
-        if (findById(id) == new Product[0]) {
+        if (findById(id) == null) {
             throw new NotFoundException("Element with id: " + id + " not found");
         }
-        if (findById(id) != new Product[0]) {
-            int length = items.length - 1;
-            Product[] tmp = new Product[length];
-            int index = 0;
-            for (Product item : items) {
-                if (item.getId() != id) {
-                    tmp[index] = item;
-                    index++;
-                }
+        int length = items.length - 1;
+        Product[] tmp = new Product[length];
+        int index = 0;
+        for (Product item : items) {
+            if (item.getId() != id) {
+                tmp[index] = item;
+                index++;
             }
-            items = tmp;
         }
+        items = tmp;
     }
 }

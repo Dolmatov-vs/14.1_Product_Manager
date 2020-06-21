@@ -28,21 +28,22 @@ class RemoveByIdTest {
     void shouldFindById() {
         int idToFind = 2;
 
-        Product[] expected = new Product[]{two};
-        Product[] actual = repository.findById(idToFind);
+        Product expected = two;
+        Product actual = repository.findById(idToFind);
 
-        assertArrayEquals(expected, actual);
+        assertEquals(expected, actual);
     }
+
 
     @Test
     void shouldIdNotFind() {
         int idToFind = 5;
         repository.findById(idToFind);
 
-        Product[] expected = new Product[0];
-        Product[] actual = repository.findById(idToFind);
+        Product expected = null;
+        Product actual = repository.findById(idToFind);
 
-        assertArrayEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -59,6 +60,6 @@ class RemoveByIdTest {
     @Test
     void shouldIdToRemoveNotFind() {
         int idToRemove = 5;
-        repository.removeById(idToRemove);
+        assertThrows(NotFoundException.class, () -> repository.removeById(idToRemove));
     }
 }
